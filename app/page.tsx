@@ -8,7 +8,7 @@ export default function Home() {
         <Navbar/>
       </div>
 
-      <div className="p-4 flex items-end gap-8 border-b-2 col-span-3 border-b-foreground">
+      <div className="p-4 flex items-end gap-4 border-b-2 col-span-3 border-b-foreground">
         <Image className="" src="/logo.svg" alt="logo" width={48} height={94}/>
         <h1 className="font-display text-4xl tracking-[0.2em]">ILLCERAMICS</h1>
       </div>

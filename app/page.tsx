@@ -18,6 +18,15 @@ export default function Home() {
         <div className="z-20 font-header text-2xl absolute top-3/5 left-1/2 transform -translate-x-1/2 -translate-y-1/3 underline underline-offset-[16px]">Ver Catálogo</div>
         <span className="absolute w-1/12 bg-accent-light left-1/2 transform -translate-x-1/2 h-36"/>
       </div>
+
+      <div className="col-span-2 relative h-[322px] border-b-2 border-r-2 border-foreground">
+        <Image src="/images/landing-image-1.png" fill alt="landing image 1" className="object-cover"/>
+      </div>
+
+      <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
+        <Image src="/icons/insta-icon.svg" height={64} width={64} alt="insta icon"/>
+        <Image src="/icons/mail-icon.svg" height={64} width={64} alt="mail icon"/>
+      </div>
     </div>
   );
 }

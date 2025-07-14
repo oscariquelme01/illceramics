@@ -24,8 +24,8 @@ export default function Home() {
       </div>
 
       <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
-        <Image src="/icons/insta-icon.svg" height={64} width={64} alt="insta icon"/>
-        <Image src="/icons/mail-icon.svg" height={64} width={64} alt="mail icon"/>
+        <Image src="/icons/insta-icon.svg" height={48} width={48} alt="insta icon"/>
+        <Image src="/icons/mail-icon.svg" height={48} width={48} alt="mail icon"/>
       </div>
     </div>
   );

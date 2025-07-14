@@ -1,16 +1,23 @@
 import type { Metadata } from "next";
-import { Roboto, Playfair_Display } from "next/font/google";
+import { Roboto, Playfair, Playfair_Display } from "next/font/google";
 import "./globals.css";
+import Navbar from "./navbar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
   subsets: ["latin"],
 });
 
-const playfairDeplay = Playfair_Display({
+const playfair = Playfair({
   variable: "--font-playfair",
   subsets: ["latin"],
 });
+
+const playfairDisplay = Playfair_Display({
+  variable: "--font-playfair-display",
+  subsets: ["latin"],
+});
+
 
 export const metadata: Metadata = {
   title: "Illceramics",
@@ -25,7 +32,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${roboto.variable} ${playfairDeplay.variable} antialiased`}
+        className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}
       >
         {children}
       </body>

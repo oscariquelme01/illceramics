@@ -2,7 +2,7 @@
 
 :root {
   --background: #E0E0D0;
-  --background-accent: #B3B3A6;
+  --background-dark: #B3B3A6;
   --background-light: #F3F3EC;
   --foreground: #653935;
   --accent-light: #F6CEA4;
@@ -10,7 +10,7 @@
 
 @theme inline {
   --color-background: var(--background);
-  --color-background-accent: var(--background-accent);
+  --color-background-dark: var(--background-dark);
   --color-foreground: var(--foreground);
   --color-background-light: var(--background-light);
   --color-accent-light: var(--accent-light);

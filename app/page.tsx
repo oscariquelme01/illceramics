@@ -3,14 +3,17 @@ import Navbar from "./navbar";
 
 export default function Home() {
   return (
-    <div className="grid grid-cols-3">
+    <div className="grid grid-cols-3 relative">
+      {/* darker bacground divider*/}
+      <span className="bg-background-dark absolute row-start-5 row-span-2 col-span-3 h-full w-full"/>
+
       <div className="col-span-3">
         <Navbar/>
       </div>
 
-      <div className="p-4 flex items-end gap-4 border-b-2 col-span-3 border-b-foreground">
+      <div className="p-4 flex items-end justify-center gap-4 border-b-2 col-span-3 border-b-foreground">
         <Image className="" src="/logo.svg" alt="logo" width={48} height={94}/>
-        <h1 className="font-display text-4xl tracking-[0.2em]">ILLCERAMICS</h1>
+        <h1 className="font-display text-3xl tracking-[0.2em]">ILLCERAMICS</h1>
       </div>
 
       <div className="relative col-span-3 h-56 border-b-2 border-b-foreground flex items-end">
@@ -26,6 +29,16 @@ export default function Home() {
       <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
         <Image src="/icons/insta-icon.svg" height={48} width={48} alt="insta icon"/>
         <Image src="/icons/mail-icon.svg" height={48} width={48} alt="mail icon"/>
+      </div>
+
+      <p className="font-paragraph italic z-10 col-span-3 p-6 border-b-2 border-foreground"> Parrafo breve sobre la empresa. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </p>
+
+      <div className="flex items-center justify-center">
+        <div className="transform -rotate-90 font-header whitespace-nowrap text-2xl underline underline-offset-8">Encargos personalizados</div>
+      </div>
+
+      <div className="col-span-2 relative h-[322px] border-l-2 border-foreground">
+        <Image src="/images/landing-image-2.png" fill alt="landing image 1" className="object-cover"/>
       </div>
     </div>
   );

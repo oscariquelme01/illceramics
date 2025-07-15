@@ -1,3 +1,4 @@
+import { Instagram, Mail } from "lucide-react";
 import Image from "next/image"
 
 export default function Home() {
@@ -22,8 +23,8 @@ export default function Home() {
       </div>
 
       <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
-        <Image src="/icons/insta-icon.svg" height={48} width={48} alt="insta icon"/>
-        <Image src="/icons/mail-icon.svg" height={48} width={48} alt="mail icon"/>
+        <Instagram className="w-12 h-12 stroke-1"/>
+        <Mail className="w-12 h-12 stroke-1"/>
       </div>
 
       <p className="font-paragraph italic z-10 col-span-3 p-6 border-b-2 border-foreground"> Parrafo breve sobre la empresa. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </p>

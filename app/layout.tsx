@@ -3,7 +3,7 @@ import { Roboto, Playfair, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/app/navbar";
 
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { AppSidebar } from "@/components/app/sidebar"
 
 const roboto = Roboto({

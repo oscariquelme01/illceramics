@@ -23,7 +23,7 @@ export default function Home() {
       </div>
 
       <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
-        <Instagram className="w-12 h-12 stroke-1"/>
+        <a href="https://www.instagram.com/illceramics/"><Instagram className="w-12 h-12 stroke-1"/></a>
         <Mail className="w-12 h-12 stroke-1"/>
       </div>
 

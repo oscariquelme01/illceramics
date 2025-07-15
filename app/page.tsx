@@ -1,20 +1,15 @@
-import Image from "next/image";
-import Navbar from "./navbar";
+import Image from "next/image"
 
 export default function Home() {
   return (
-    <div className="grid grid-cols-3 relative">
+    <>
       {/* darker bacground divider*/}
       <span className="bg-background-dark absolute row-start-5 row-span-2 col-span-3 h-full w-full"/>
 
-      <div className="col-span-3">
-        <Navbar/>
-      </div>
-
       <div className="relative col-span-3 h-56 border-b-2 border-b-foreground flex items-end">
-        <span className="absolute w-3/5 bg-background-light left-1/2 transform -translate-x-1/2 h-40"/>
+        <span className="z-[-1] absolute w-3/5 bg-background-light left-1/2 transform -translate-x-1/2 h-40"/>
         <div className="z-20 font-header text-2xl absolute top-3/5 left-1/2 transform -translate-x-1/2 -translate-y-1/3 underline underline-offset-[16px]">Ver Catálogo</div>
-        <span className="absolute w-1/12 bg-accent-light left-1/2 transform -translate-x-1/2 h-36"/>
+        <span className="z-[-1] absolute w-1/12 bg-accent-light left-1/2 transform -translate-x-1/2 h-36"/>
       </div>
 
       <div className="p-4 flex items-end justify-center gap-4 border-b-2 col-span-3 border-b-foreground">
@@ -40,6 +35,6 @@ export default function Home() {
       <div className="col-span-2 relative h-[322px] border-l-2 border-foreground">
         <Image src="/images/landing-image-2.png" fill alt="landing image 1" className="object-cover"/>
       </div>
-    </div>
+    </>
   );
 }

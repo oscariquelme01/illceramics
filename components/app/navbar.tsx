@@ -1,13 +1,22 @@
-import { SidebarTrigger } from "@/components/ui/sidebar"
+import { SheetTrigger } from "@/components/ui/sheet"
 import Image from "next/image"
 
 import { cn } from "@/lib/utils"
+
+import {
+  Sheet,
+  SheetContent,
+  SheetDescription,
+  SheetHeader,
+  SheetTitle,
+} from "@/components/ui/sheet"
+
 
 interface NavbarProps {
   className?: string
 }
 
-export default function Navbar({ className}: NavbarProps) {
+export default function Navbar({ className }: NavbarProps) {
   return (
     <nav className={cn(
       "w-full border-b-2 border-b-foreground flex items-center justify-between py-4",
@@ -19,7 +28,19 @@ export default function Navbar({ className}: NavbarProps) {
         <Image src="/icons/bag-icon.svg" alt="cart" width={32} height={32}/>
       </div>
 
-      <SidebarTrigger/>
+      <Sheet>
+        <SheetTrigger>
+            <Image src="/icons/menu-mobile-icon.svg" alt="mobile-icon" width={32} height={32} className="md:hidden mr-4"/>
+        </SheetTrigger>
+        <SheetContent>
+          <SheetHeader>
+            <SheetTitle>This is some serious navigation</SheetTitle>
+            <SheetDescription>
+                Link 1<br/> Link 2<br/>
+            </SheetDescription>
+          </SheetHeader>
+        </SheetContent>
+      </Sheet>
     </nav>
   )
 }

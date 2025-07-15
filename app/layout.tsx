@@ -2,9 +2,7 @@ import type { Metadata } from "next";
 import { Roboto, Playfair, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/app/navbar";
-
-import { SidebarProvider } from "@/components/ui/sidebar"
-import { AppSidebar } from "@/components/app/sidebar"
+import Sidebar from "@/components/app/sidebar";
 
 const roboto = Roboto({
   variable: "--font-roboto",
@@ -37,13 +35,11 @@ export default function RootLayout({
       <body
         className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}
       >
-        <SidebarProvider>
-          <AppSidebar/>
-            <main className="grid grid-cols-3 relative">
-              <Navbar className="col-span-3"/>
-              {children}
-            </main>
-        </SidebarProvider>
+        <Sidebar/>
+        <main className="grid grid-cols-3 relative sm:grid-cols-5">
+          <Navbar className="col-span-3 sm:col-span-5"/>
+          {children}
+        </main>
       </body>
     </html>
   );

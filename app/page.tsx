@@ -22,9 +22,13 @@ export default function Home() {
         <Image src="/images/landing-image-1.png" fill alt="landing image 1" className="object-cover"/>
       </div>
 
-      <div className="col-span-1 border-b-2 border-foreground flex flex-col justify-center items-center gap-8">
-        <a href="https://www.instagram.com/illceramics/"><Instagram className="w-12 h-12 stroke-1"/></a>
-        <Mail className="w-12 h-12 stroke-1"/>
+      <div className="col-span-1 border-b-2 border-foreground flex justify-center items-center gap-8 relative lg:justify-center">
+        <div className="flex flex-col justify-center items-center gap-8 lg:ml-8">
+          <a href="https://www.instagram.com/illceramics/"><Instagram className="w-12 h-12 stroke-1"/></a>
+          <Mail className="w-12 h-12 stroke-1"/>
+        </div>
+        {/*desktop decoration*/}
+        <Image src="/images/cell-decor.png" width={160} height={160} alt="cell decoration" className="hidden lg:block relative -right-24"/>
       </div>
 
       <p className="font-paragraph italic z-10 col-span-3 p-6 border-b-2 border-foreground lg:col-start-4 lg:row-start-4 lg:col-span-2 lg:border-b-2 lg:text-xl flex items-center"> Parrafo breve sobre la empresa. Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod  tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim </p>
@@ -39,6 +43,7 @@ export default function Home() {
 
       {/*desktop lines*/}
       <span className="hidden lg:block col-start-1 row-start-3 h-full row-span-2 border-foreground border-b-2"/>
+
     </>
   );
 }

@@ -36,7 +36,7 @@ export default function RootLayout({
         className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}
       >
         <Sidebar/>
-        <main className="grid grid-cols-3 relative sm:grid-cols-5">
+        <main className="grid grid-cols-3 relative sm:grid-cols-5 lg:grid-cols-[1fr_4fr_3fr_2fr_3fr]">
           <Navbar className="col-span-3 sm:col-span-5"/>
           {children}
         </main>

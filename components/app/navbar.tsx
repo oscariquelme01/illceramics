@@ -10,6 +10,7 @@ import {
   SheetHeader,
   SheetTitle,
 } from "@/components/ui/sheet"
+import Link from "next/link"
 
 
 interface NavbarProps {
@@ -22,7 +23,7 @@ export default function Navbar({ className }: NavbarProps) {
       "w-full border-b-2 border-b-foreground flex items-center justify-between py-4",
       className
       )}>
-      <a href="/" className="relative w-20 h-20"><Image src="/logo.svg" alt="logo" fill className="lg:ml-10"/></a>
+      <Link href="/" className="relative w-20 h-20"><Image src="/logo.svg" alt="logo" fill className="lg:ml-10"/></Link>
       <div className="flex items-center">
         <div className="justify-around gap-16 mr-10 hidden md:flex">
           <Image src="/icons/heart-icon.svg" alt="favourites" width={32} height={32}/>

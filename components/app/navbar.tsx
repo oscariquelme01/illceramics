@@ -12,7 +12,7 @@ interface NavbarProps {
 
 export default function Navbar({ className }: NavbarProps) {
 	return (
-		<nav className={cn('border-b-foreground flex w-full items-center justify-between border-b-2 py-4', className)}>
+		<nav className={cn('border-b-foreground flex w-full items-center justify-between border-b py-4', className)}>
 			<Link href="/" className="relative h-20 w-20">
 				<Image src="/logo.svg" alt="logo" fill className="lg:ml-10" />
 			</Link>

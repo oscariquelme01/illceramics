@@ -3,6 +3,7 @@ import { Roboto, Playfair, Playfair_Display } from 'next/font/google'
 import '@/app/globals.css'
 import Navbar from '@/components/app/navbar'
 import Sidebar from '@/components/app/sidebar'
+import { Toaster } from '@/components/ui/sonner'
 
 const roboto = Roboto({
 	variable: '--font-roboto',
@@ -33,10 +34,11 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}>
 				<Sidebar />
-				<main className="">
+				<main className="flex min-h-screen flex-col">
 					<Navbar className="col-span-full" />
 					{children}
 				</main>
+				<Toaster />
 			</body>
 		</html>
 	)

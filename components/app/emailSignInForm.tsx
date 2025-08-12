@@ -55,7 +55,7 @@ export default function LoginForm() {
 						<FormItem>
 							<FormLabel>Email</FormLabel>
 							<FormControl>
-								<Input placeholder="you@example.com" type="email" {...field} />
+								<Input placeholder="tu@ejemplo.com" type="email" {...field} />
 							</FormControl>
 							<FormMessage />
 						</FormItem>
@@ -68,7 +68,7 @@ export default function LoginForm() {
 					name="password"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Password</FormLabel>
+							<FormLabel>Contraseña</FormLabel>
 							<FormControl>
 								<Input placeholder="••••••••" type="password" {...field} />
 							</FormControl>
@@ -78,7 +78,7 @@ export default function LoginForm() {
 				/>
 
 				<Button type="submit" variant="accent" className="w-full">
-					Log in
+					Iniciar sesión
 				</Button>
 			</form>
 		</Form>

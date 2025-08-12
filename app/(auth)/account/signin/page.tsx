@@ -38,7 +38,7 @@ export default function SignIn() {
 
 					<div className="relative flex items-center">
 						<div className="border-foreground-200 flex-grow border-t"></div>
-						<span className="text-foreground-300 mx-4 flex-shrink text-sm">or continue with</span>
+						<span className="text-foreground-300 mx-4 flex-shrink text-sm">o continuar con</span>
 						<div className="border-foreground-200 flex-grow border-t"></div>
 					</div>
 
@@ -47,9 +47,9 @@ export default function SignIn() {
 
 					<div className="text-center">
 						<span className="text-sm text-gray-600">
-							Don&apos;t have an account?{' '}
+							¿No tienes una cuenta todavía?{' '}
 							<a href="#" className="text-accent-600 hover:text-accent-500 font-medium">
-								Sign up
+								Registrate
 							</a>
 						</span>
 					</div>

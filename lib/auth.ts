@@ -13,12 +13,18 @@ export const auth = betterAuth({
 		provider: 'pg', // or "mysql", "sqlite"
 		schema: schema
 	}),
+	socialProviders: {
+		google: {
+			clientId: process.env.GOOGLE_AUTH_CLIENT!,
+			clientSecret: process.env.GOOGLE_AUTH_SECRET!
+		}
+	},
 	emailAndPassword: {
 		enabled: true,
 		autoSignIn: true,
 		minPasswordLength: 8,
 		maxPasswordLength: 20,
-		requireEmailVerification: true //It does not allow user to login without email verification [!code highlight]
+		requireEmailVerification: true //It does not allow user to login without email verification
 	},
 	emailVerification: {
 		sendOnSignUp: true, // Automatically sends a verification email at signup

@@ -17,12 +17,13 @@ const buttonVariants = cva(
 				secondary: 'bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80',
 				ghost: 'hover:bg-accent-300 hover:text-accent-foreground dark:hover:bg-accent/50 rounded-xs',
 				link: 'text-primary underline-offset-4 hover:underline',
-				accent: 'bg-accent-400 text-foreground-900 shadow-xs hover:bg-accent-500/90 shadow-xs rounded-md'
+				accent: 'bg-accent-400 text-foreground-900 shadow-xs hover:bg-accent-500/90 shadow-xs rounded-md',
+				oauth: 'bg-background-secondary-400 text-foreground-500 rounded-md border shadow-sm hover:bg-background-secondary-500 text-sm border-foreground-100'
 			},
 			size: {
 				default: 'h-9 px-4 py-2 has-[>svg]:px-3',
 				sm: 'h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5',
-				lg: 'h-10 rounded-md px-6 has-[>svg]:px-4',
+				lg: 'h-10 rounded-md px-6 has-[>svg]:px-4 py-4',
 				icon: 'size-9'
 			}
 		},

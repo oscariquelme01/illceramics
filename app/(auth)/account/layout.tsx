@@ -34,7 +34,7 @@ export default function RootLayout({
 		<html lang="en">
 			<body className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}>
 				<Sidebar />
-				<main className="flex min-h-screen flex-col">
+				<main className="bg-background-primary-500 flex min-h-screen flex-col">
 					<Navbar className="col-span-full" />
 					{children}
 				</main>

@@ -1,56 +1,32 @@
 'use client'
 
 import RegisterForm from '@/components/app/emailRegisterForm'
+import GoogleSignInButton from '@/components/app/googleSignInButton'
 
 export default function SignUp() {
-	const handleGoogleSignUp = () => {
-		// Handle Google OAuth
-		console.log('Google sign up')
-	}
-
-	const handleGitHubSignUp = () => {
-		// Handle GitHub OAuth
-		console.log('GitHub sign up')
-	}
-
 	return (
-		<div className="flex min-h-screen items-center justify-center bg-gray-50">
-			<div className="w-full max-w-md space-y-8 p-8">
+		<div className="flex flex-1 items-center justify-center">
+			<div className="bg-background-primary-500 w-full max-w-md space-y-8 p-8 shadow-2xl">
 				<div>
-					<h2 className="text-center text-3xl font-bold text-gray-900">Create your account</h2>
-					<p className="mt-2 text-center text-sm text-gray-600">Join us today and get started</p>
+					<h2 className="text-foreground-700 text-center text-3xl font-bold">Crea tu cuenta</h2>
+					<p className="text-foreground-600 mt-2 text-center text-sm">Únete a nosotros hoy y encuentra productos de cerámica</p>
 				</div>
 
 				<div className="space-y-4">
 					{/* OAuth Buttons */}
-					<button
-						onClick={handleGoogleSignUp}
-						className="flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-					>
-						Continue with Google
-					</button>
+					<GoogleSignInButton />
 
-					<button
-						onClick={handleGitHubSignUp}
-						className="flex w-full justify-center rounded-md border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50"
-					>
-						Continue with GitHub
-					</button>
-
-					<div className="relative">
-						<div className="absolute inset-0 flex items-center">
-							<div className="w-full border-t border-gray-300" />
-						</div>
-						<div className="relative flex justify-center text-sm">
-							<span className="bg-gray-50 px-2 text-gray-500">Or continue with</span>
-						</div>
+					<div className="relative flex items-center">
+						<div className="border-foreground-200 flex-grow border-t"></div>
+						<span className="text-foreground-300 mx-4 flex-shrink text-sm">o continuar con</span>
+						<div className="border-foreground-200 flex-grow border-t"></div>
 					</div>
 
 					{/* Email/Password Form */}
 					<RegisterForm />
 
 					<div className="text-center">
-						<span className="text-sm text-gray-600">
+						<span className="text-foreground-600 text-sm">
 							¿Ya tienes una cuenta?{' '}
 							<a href="/account/signin" className="text-accent-600 hover:text-accent-500 font-medium">
 								Inicia sesión

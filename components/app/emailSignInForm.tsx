@@ -77,7 +77,7 @@ export default function LoginForm() {
 					)}
 				/>
 
-				<Button type="submit" variant="accent" className="w-full">
+				<Button type="submit" variant="accent" className="text-foreground-500 w-full">
 					Iniciar sesión
 				</Button>
 			</form>

@@ -145,15 +145,15 @@
 	--color-border: var(--border);
 	--color-destructive: var(--destructive);
 	--color-accent-foreground: var(--accent-foreground);
-	--color-accent: var(--accent);
+	--color-accent: var(--background-secondary-500);
 	--color-muted-foreground: var(--muted-foreground);
 	--color-muted: var(--muted);
 	--color-secondary-foreground: var(--secondary-foreground);
 	--color-secondary: var(--secondary);
 	--color-primary-foreground: var(--color-foreground-500);
 	--color-primary: var(--color-background-primary-200);
-	--color-popover-foreground: var(--popover-foreground);
-	--color-popover: var(--popover);
+	--color-popover-foreground: var(--foreground-500);
+	--color-popover: var(--background-primary-500);
 	--color-card-foreground: var(--card-foreground);
 	--color-card: var(--card);
 	--radius-sm: calc(var(--radius) - 4px);

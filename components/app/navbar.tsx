@@ -22,6 +22,8 @@ import {
 	DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
 
+import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+
 interface NavbarProps {
 	className?: string
 }
@@ -29,13 +31,35 @@ interface NavbarProps {
 function renderLoggedInNavbar() {
 	return (
 		<>
-			<Heart size={32} strokeWidth={1.2} />
-			<ShoppingBag size={32} strokeWidth={1.2} />
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<Heart size={32} strokeWidth={1.2} className="hover:cursor-pointer" />
+				</TooltipTrigger>
+				<TooltipContent>
+					<p>Favoritos</p>
+				</TooltipContent>
+			</Tooltip>
+
+			<Tooltip>
+				<TooltipTrigger asChild>
+					<ShoppingBag size={32} strokeWidth={1.2} className="hover:cursor-pointer" />
+				</TooltipTrigger>
+				<TooltipContent>
+					<p>Carrito</p>
+				</TooltipContent>
+			</Tooltip>
 
 			{/*Account dropdown menu*/}
 			<DropdownMenu>
-				<DropdownMenuTrigger className="focus:outline-none">
-					<User size={32} strokeWidth={1.5} />
+				<DropdownMenuTrigger className="hover:cursor-pointer focus:outline-none">
+					<Tooltip>
+						<TooltipTrigger asChild>
+							<User size={32} strokeWidth={1.5} />
+						</TooltipTrigger>
+						<TooltipContent>
+							<p>Mi cuenta</p>
+						</TooltipContent>
+					</Tooltip>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="relative right-2">
 					<DropdownMenuLabel>My Account</DropdownMenuLabel>

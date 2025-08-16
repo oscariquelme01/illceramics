@@ -1,4 +1,5 @@
 import { PackageSearch, Users, LayoutList } from 'lucide-react'
+import LogoutButton from '@/components/app/logoutButton'
 
 import {
 	Sidebar,
@@ -11,7 +12,6 @@ import {
 	SidebarMenuItem,
 	SidebarFooter
 } from '@/components/ui/sidebar'
-import { Button } from '../ui/button'
 
 // Menu items.
 const items = [
@@ -59,7 +59,7 @@ const AdminSidebar: React.FC<adminSidebarProps> = ({ name }) => {
 				</SidebarGroup>
 			</SidebarContent>
 			<SidebarFooter>
-				<Button>Cerrar Sessión</Button>
+				<LogoutButton />
 			</SidebarFooter>
 		</Sidebar>
 	)

@@ -7,18 +7,19 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { toast } from 'sonner'
-
-import { authClient } from '@/lib/authClient'
 
 const formSchema = z.object({
 	email: z.email({ error: 'Por favor, introduce un correo electrónico válido' }),
 	password: z.string().nonempty({ error: 'La contraseña no puede estar vacia' })
 })
 
-type FormValues = z.infer<typeof formSchema>
+export type FormValues = z.infer<typeof formSchema>
 
-export default function LoginForm() {
+type LoginFormProps = {
+	onSubmit: (values: FormValues) => void
+}
+
+const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -27,22 +28,6 @@ export default function LoginForm() {
 		},
 		mode: 'onBlur' // validate on each change
 	})
-
-	async function onSubmit(values: FormValues) {
-		const { data, error } = await authClient.signIn.email({
-			email: values.email, // required
-			password: values.password, // required
-			rememberMe: true,
-			callbackURL: '/'
-		})
-
-		// wrong user & password
-		if (error && error.statusText === 'UNAUTHORIZED') {
-			toast.error('Correo electrónico o contraseña incorrectos')
-		}
-
-		console.log(data, error)
-	}
 
 	return (
 		<Form {...form}>
@@ -84,3 +69,5 @@ export default function LoginForm() {
 		</Form>
 	)
 }
+
+export default LoginForm

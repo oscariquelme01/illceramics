@@ -7,7 +7,7 @@ import '@/app/globals.css'
 import { authClient } from '@/lib/authClient'
 import { redirect, usePathname } from 'next/navigation'
 import { Playfair, Playfair_Display, Roboto } from 'next/font/google'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
 
 const roboto = Roboto({
@@ -29,8 +29,14 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 	const { data: session, isPending } = authClient.useSession()
 	const pathname = usePathname()
 
+	const [name, setName] = useState('')
+
 	useEffect(() => {
 		if (!isPending) {
+			// Grab the name to display in the sidebar
+			const firstName = session?.user.name!.split(' ')[0] || ''
+			setName(firstName)
+
 			if (pathname !== '/admin/login') {
 				if (!session) redirect('/admin/login')
 				if (!session?.user.role?.includes('admin')) redirect('/admin/login')
@@ -49,7 +55,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 					</div>
 				) : (
 					<SidebarProvider>
-						{pathname !== '/admin/login' && <Sidebar />}
+						{pathname !== '/admin/login' && <Sidebar name={name} />}
 						<main className="w-full">
 							{pathname !== '/admin/login' && <SidebarTrigger />}
 							{children}

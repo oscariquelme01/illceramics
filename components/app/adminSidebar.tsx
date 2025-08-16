@@ -8,8 +8,10 @@ import {
 	SidebarGroupLabel,
 	SidebarMenu,
 	SidebarMenuButton,
-	SidebarMenuItem
+	SidebarMenuItem,
+	SidebarFooter
 } from '@/components/ui/sidebar'
+import { Button } from '../ui/button'
 
 // Menu items.
 const items = [
@@ -30,12 +32,16 @@ const items = [
 	}
 ]
 
-export default function AdminSidebar() {
+type adminSidebarProps = {
+	name: string
+}
+
+const AdminSidebar: React.FC<adminSidebarProps> = ({ name }) => {
 	return (
 		<Sidebar>
 			<SidebarContent>
 				<SidebarGroup>
-					<SidebarGroupLabel>Administacrión</SidebarGroupLabel>
+					<SidebarGroupLabel className="text-accent-600 my-4 text-lg">Hola {name}!</SidebarGroupLabel>
 					<SidebarGroupContent>
 						<SidebarMenu>
 							{items.map(item => (
@@ -52,6 +58,11 @@ export default function AdminSidebar() {
 					</SidebarGroupContent>
 				</SidebarGroup>
 			</SidebarContent>
+			<SidebarFooter>
+				<Button>Cerrar Sessión</Button>
+			</SidebarFooter>
 		</Sidebar>
 	)
 }
+
+export default AdminSidebar

@@ -23,6 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip'
+import LogoutButton from './logoutButton'
 
 interface NavbarProps {
 	className?: string
@@ -62,12 +63,14 @@ function renderLoggedInNavbar() {
 					</Tooltip>
 				</DropdownMenuTrigger>
 				<DropdownMenuContent className="relative right-2">
-					<DropdownMenuLabel>My Account</DropdownMenuLabel>
+					<DropdownMenuLabel>Mi cuenta</DropdownMenuLabel>
 					<DropdownMenuSeparator />
-					<DropdownMenuItem>Profile</DropdownMenuItem>
-					<DropdownMenuItem>Billing</DropdownMenuItem>
-					<DropdownMenuItem>Team</DropdownMenuItem>
-					<DropdownMenuItem>Subscription</DropdownMenuItem>
+					<DropdownMenuItem>Perfil</DropdownMenuItem>
+					<DropdownMenuItem>Pedidos</DropdownMenuItem>
+					<DropdownMenuSeparator />
+					<DropdownMenuItem asChild className="m-0">
+						<LogoutButton />
+					</DropdownMenuItem>
 				</DropdownMenuContent>
 			</DropdownMenu>
 		</>

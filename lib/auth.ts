@@ -1,6 +1,7 @@
 export const runtime = 'nodejs'
 
 import { betterAuth } from 'better-auth'
+import { admin } from 'better-auth/plugins'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { db } from '@/database' // your drizzle instance
 
@@ -31,7 +32,6 @@ export const auth = betterAuth({
 		requireEmailVerification: true,
 		autoSignInAfterVerification: true, // Automatically signIn the user after verification
 		sendVerificationEmail: async ({ user, url }) => {
-			console.log('SENDING EMAIL TO ' + user.email + ' WITH URL ' + url)
 			const result = await sendVerificationEmail({
 				name: user.name,
 				to: user.email,
@@ -39,7 +39,9 @@ export const auth = betterAuth({
 				url: url
 			})
 			const resultData = await result.json()
+			//TODO: show some error if the mail was not sent properly
 			console.log('RESULT', resultData)
 		}
-	}
+	},
+	plugins: [admin()]
 })

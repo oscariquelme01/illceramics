@@ -5,7 +5,7 @@ export default function Home() {
 	return (
 		<>
 			{/* darker bacground divider*/}
-			<span className="bg-background-secondary-500 border-foreground-500 absolute -z-10 col-span-3 row-span-2 row-start-5 h-full w-full sm:col-span-full sm:col-start-1 sm:row-start-5 xl:col-span-2 xl:col-start-4 xl:row-span-4 xl:row-start-1 xl:border-l" />
+			<span className="bg-background-secondary-500 border-foreground-500 absolute -z-10 col-span-3 row-span-2 row-start-5 h-full w-full sm:col-span-full sm:col-start-1 sm:row-span-3 sm:row-start-5 xl:col-span-2 xl:col-start-4 xl:row-span-5 xl:row-start-1 xl:border-l" />
 
 			<div className="border-foreground-500 relative col-span-3 flex h-56 items-end border-b sm:col-span-1 sm:col-start-2 sm:row-start-3 sm:border-r sm:border-l xl:col-start-2 xl:row-span-2 xl:row-start-3 xl:h-full">
 				<span className="bg-background-primary-100 absolute left-1/2 z-[-1] h-40 w-3/5 -translate-x-1/2 transform xl:h-56" />
@@ -46,13 +46,13 @@ export default function Home() {
 				magna aliqua. Ut enim ad minim{' '}
 			</p>
 
-			<div className="border-foreground-500 flex items-center justify-center sm:col-start-3 sm:row-start-5 sm:border-r sm:border-b xl:col-span-2 xl:col-start-4 xl:row-start-3 xl:border-r-0">
+			<div className="border-foreground-500 flex items-center justify-center border-b sm:col-start-3 sm:row-start-5 sm:border-r xl:col-span-2 xl:col-start-4 xl:row-start-3 xl:border-r-0">
 				<div className="font-header -rotate-90 transform text-2xl whitespace-nowrap underline underline-offset-8 sm:rotate-none sm:transform-none xl:p-16 xl:text-4xl">
 					Encargos personalizados
 				</div>
 			</div>
 
-			<div className="border-foreground-500 relative col-span-2 h-[322px] border-l sm:col-span-1 sm:col-start-2 sm:row-span-2 sm:row-start-5 sm:border-r sm:border-b xl:col-start-4 xl:row-span-1 xl:row-start-2 xl:h-auto">
+			<div className="border-foreground-500 relative col-span-2 h-[322px] border-b border-l sm:col-span-1 sm:col-start-2 sm:row-span-2 sm:row-start-5 sm:border-r xl:col-start-4 xl:row-span-1 xl:row-start-2 xl:h-auto">
 				<Image src="/images/landing-image-2.png" fill alt="landing image 1" className="object-cover" />
 			</div>
 

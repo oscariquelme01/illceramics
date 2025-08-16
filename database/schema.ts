@@ -13,7 +13,11 @@ export const user = pgTable('user', {
 		.notNull(),
 	updatedAt: timestamp('updated_at')
 		.$defaultFn(() => /* @__PURE__ */ new Date())
-		.notNull()
+		.notNull(),
+	role: text('role'),
+	banned: boolean('banned'),
+	banReason: text('ban_reason'),
+	banExpires: timestamp('ban_expires')
 })
 
 export const session = pgTable('session', {
@@ -26,7 +30,8 @@ export const session = pgTable('session', {
 	userAgent: text('user_agent'),
 	userId: text('user_id')
 		.notNull()
-		.references(() => user.id, { onDelete: 'cascade' })
+		.references(() => user.id, { onDelete: 'cascade' }),
+	impersonatedBy: text('impersonated_by')
 })
 
 export const account = pgTable('account', {

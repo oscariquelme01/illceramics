@@ -19,7 +19,7 @@ function LogoutButton() {
 	}
 
 	return (
-		<Button onClick={handleLogout} variant="default" className="flex w-full items-center justify-center p-0">
+		<Button onClick={handleLogout} variant="destructive" className="flex w-full items-center justify-center p-0">
 			{loading ? (
 				<Spinner />
 			) : (

@@ -2,6 +2,7 @@
 
 import * as React from 'react'
 import { useForm } from 'react-hook-form'
+import { toast } from 'sonner'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
@@ -9,6 +10,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Input } from '@/components/ui/input'
 
 import { authClient } from '@/lib/authClient'
+import { Spinner } from '../ui/shadcn-io/spinner'
 
 const formSchema = z
 	.object({
@@ -26,6 +28,8 @@ const formSchema = z
 type FormValues = z.infer<typeof formSchema>
 
 export default function RegisterForm() {
+	const [loading, setLoading] = React.useState(false)
+
 	const form = useForm<FormValues>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -39,29 +43,25 @@ export default function RegisterForm() {
 	})
 
 	async function onSubmit(values: FormValues) {
-		console.log('passed validation!')
-		const { data, error } = await authClient.signUp.email(
+		setLoading(true)
+
+		await authClient.signUp.email(
 			{
 				email: values.email, // user email address
 				password: values.password, // user password -> min 8 characters by default
 				name: values.firstName + ' ' + values.lastName // user display name
 			},
 			{
-				onRequest: () => {
-					//show loading
-					console.log('loading')
-				},
-				onSuccess: () => {
-					alert('success')
+				onSuccess: async () => {
+					toast.success('Registro completado correctamente. Revisa tu correo para verificar tu cuenta')
 				},
 				onError: ctx => {
 					// display the error message
-					alert(ctx.error.message)
+					toast.error('Error al crear el usuario: ' + ctx.error.message)
 				}
 			}
 		)
-
-		console.log(data, error)
+		setLoading(false)
 	}
 
 	return (
@@ -144,7 +144,7 @@ export default function RegisterForm() {
 				/>
 
 				<Button type="submit" variant="accent" className="w-full">
-					¡Registrame!
+					{loading ? <Spinner /> : '¡Registrame!'}
 				</Button>
 			</form>
 		</Form>

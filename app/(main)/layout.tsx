@@ -32,9 +32,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}>
+			<body className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} selection:bg-accent-500 antialiased`}>
 				<Sidebar />
-				<main className="relative grid grid-cols-3 sm:grid-cols-[1fr_4fr_4fr_1fr] xl:grid-cols-[1fr_4fr_3fr_2fr_3fr]">
+				<main className="relative grid grid-cols-3 sm:grid-cols-[1fr_5fr_5fr_1fr] xl:grid-cols-[1fr_4fr_3fr_2fr_3fr]">
 					<Navbar className="col-span-full" />
 					{children}
 					<Footer className="border-foreground-500 col-span-3 sm:col-span-2 sm:col-start-2 sm:border-r sm:border-l xl:col-span-2 xl:col-start-2 xl:border-r-0" />

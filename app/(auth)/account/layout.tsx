@@ -1,29 +1,9 @@
-import type { Metadata } from 'next'
-import { Roboto, Playfair, Playfair_Display } from 'next/font/google'
-import '@/app/globals.css'
+'use client'
+
 import Navbar from '@/components/app/navbar'
 import Sidebar from '@/components/app/sidebar'
 import { Toaster } from '@/components/ui/sonner'
-
-const roboto = Roboto({
-	variable: '--font-roboto',
-	subsets: ['latin']
-})
-
-const playfair = Playfair({
-	variable: '--font-playfair',
-	subsets: ['latin']
-})
-
-const playfairDisplay = Playfair_Display({
-	variable: '--font-playfair-display',
-	subsets: ['latin']
-})
-
-export const metadata: Metadata = {
-	title: 'Illceramics',
-	description: 'Ecommerce ceramic shop'
-}
+import { motion } from 'framer-motion'
 
 export default function RootLayout({
 	children
@@ -31,15 +11,13 @@ export default function RootLayout({
 	children: React.ReactNode
 }>) {
 	return (
-		<html lang="en">
-			<body className={`${roboto.variable} ${playfair.variable} ${playfairDisplay.variable} antialiased`}>
-				<Sidebar />
-				<main className="bg-background-primary-500 flex min-h-screen flex-col">
-					<Navbar className="col-span-full" />
-					{children}
-				</main>
-				<Toaster />
-			</body>
-		</html>
+		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.3 }}>
+			<Sidebar />
+			<main className="bg-background-primary-500 flex min-h-screen flex-col">
+				<Navbar className="col-span-full" />
+				{children}
+			</main>
+			<Toaster />
+		</motion.div>
 	)
 }

@@ -5,9 +5,16 @@ import Sidebar from '@/components/app/sidebar'
 import Footer from '@/components/app/footer'
 
 import { AnimatePresence, motion } from 'framer-motion'
-
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import LoadingLogo from '@/components/app/loadingLogo'
+
+// ✅ Corrected getCookie function
+export function getCookie(name: string) {
+	const value = `; ${document.cookie}`
+	const parts = value.split(`; ${name}=`)
+	if (parts.length === 2) return parts.pop()?.split(';').shift()
+	return null
+}
 
 export default function MainLayout({
 	children
@@ -16,21 +23,34 @@ export default function MainLayout({
 }>) {
 	const [isLoading, setIsLoading] = useState(true)
 
-	setTimeout(() => setIsLoading(false), 3000)
+	useEffect(() => {
+		const cookie = getCookie('first_load')
+
+		if (!cookie) {
+			// Show loader for 3 seconds on first visit
+			const timer = setTimeout(() => setIsLoading(false), 3000)
+
+			// Set persistent cookie (1 year)
+			document.cookie = 'first_load=true; path=/; max-age=31536000'
+
+			return () => clearTimeout(timer) // cleanup if unmounted
+		} else {
+			// Skip loader if cookie exists
+			setIsLoading(false)
+		}
+	}, [])
 
 	return isLoading ? (
 		<AnimatePresence>
-			{isLoading && (
-				<motion.div
-					key="loader"
-					initial={{ opacity: 1 }}
-					animate={{ opacity: 1 }}
-					exit={{ opacity: 0.5, scale: 0.2 }}
-					transition={{ duration: 0.3, ease: 'easeInOut' }}
-				>
-					<LoadingLogo />
-				</motion.div>
-			)}
+			<motion.div
+				key="loader"
+				initial={{ opacity: 1 }}
+				animate={{ opacity: 1 }}
+				exit={{ opacity: 0.5, scale: 0.2 }}
+				transition={{ duration: 0.3, ease: 'easeInOut' }}
+			>
+				<LoadingLogo />
+			</motion.div>
 		</AnimatePresence>
 	) : (
 		<motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2, duration: 0.3 }}>

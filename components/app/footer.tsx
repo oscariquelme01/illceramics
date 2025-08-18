@@ -12,14 +12,14 @@ const footerLinks: React.FC<FooterProps> = ({ className }) => {
 	return (
 		<footer className={cn('', className)}>
 			<div className="mx-auto max-w-6xl px-6 py-8">
-				<div className="flex flex-col sm:flex-row">
-					<div className="grid grid-cols-4 gap-8 md:grid-cols-4">
+				<div className="flex flex-col justify-between lg:flex-row">
+					<div className="grid grid-cols-3 gap-4">
 						{/* Company Info */}
 						<div className="space-y-4">
 							<h3 className="text-lg font-semibold">Compañia</h3>
 							<div className="space-y-2">
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">About Us</p>
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Encargos Personalizados</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Sobre nosotros</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">FAQ</p>
 								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Contacto</p>
 							</div>
 						</div>
@@ -36,17 +36,17 @@ const footerLinks: React.FC<FooterProps> = ({ className }) => {
 
 						{/* Resources */}
 						<div className="space-y-4">
-							<h3 className="text-lg font-semibold">Recursos</h3>
+							<h3 className="text-lg font-semibold">Legal</h3>
 							<div className="space-y-2">
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Documentación</p>
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Blog</p>
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Support</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Privacidad</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Términos de Servicio</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Cookies</p>
 							</div>
 						</div>
 					</div>
 
 					{/* Newsletter */}
-					<div className="my-4 space-y-4 sm:my-0">
+					<div className="my-4 space-y-4 lg:mx-4 lg:my-0 xl:mx-0">
 						<h3 className="text-lg font-semibold">¡Mantente Actualizado!</h3>
 						<p className="text-foreground-600 text-sm">Subscríbete a nuestra News Letter</p>
 						<div className="flex space-x-2">

@@ -23,7 +23,7 @@ export default function Home() {
 				<span className="bg-accent-300 absolute left-1/2 z-[2] h-36 w-1/12 origin-bottom -translate-x-1/2 transform transition-all duration-300 group-hover:scale-y-110 xl:h-48" />
 			</div>
 
-			<div className="border-foreground-500 col-span-3 flex w-full items-end justify-center gap-4 border-b p-4 sm:col-span-4 sm:col-start-1 sm:row-start-2 xl:col-span-3 xl:col-start-1 xl:row-start-2">
+			<div className="border-foreground-500 col-span-3 row-start-2 flex w-full items-end justify-center gap-4 border-b p-4 sm:col-span-4 sm:col-start-1 xl:col-span-3 xl:col-start-1 xl:row-start-2">
 				<div className="relative h-24 w-12 sm:h-30 sm:w-16 xl:h-48 xl:w-24">
 					<Image className="" src="/logo.svg" alt="logo" fill />
 				</div>
@@ -43,7 +43,6 @@ export default function Home() {
 						<Mail className="h-12 w-12 stroke-1" />
 					</a>
 				</div>
-				{/*desktop decoration*/}
 				<Image src="/images/cell-decor.png" width={160} height={160} alt="cell decoration" className="relative -right-24 hidden xl:block" />
 			</div>
 

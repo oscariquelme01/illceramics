@@ -31,7 +31,7 @@ export default function MainLayout({
 			const timer = setTimeout(() => setIsLoading(false), 3000)
 
 			// Set persistent cookie (1 year)
-			document.cookie = 'first_load=true; path=/; max-age=31536000'
+			document.cookie = 'first_load=true; path=/;'
 
 			return () => clearTimeout(timer) // cleanup if unmounted
 		} else {

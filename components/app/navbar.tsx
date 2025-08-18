@@ -103,7 +103,7 @@ export default function Navbar({ className }: NavbarProps) {
 		<nav className={cn('border-b-foreground-500 flex w-full items-center justify-between border-b py-4', className)}>
 			<Link href="/" className="flex items-end">
 				<Image src="/icons/logo-navbar.svg" alt="logo" width={48} height={48} className="lg:ml-10" />
-				<span className="font-header text-2xl">Illceramics</span>
+				<span className="font-header hidden text-2xl sm:block">Illceramics</span>
 			</Link>
 			<div className="flex items-center">
 				<div className="mr-10 hidden justify-around gap-8 sm:flex">{renderRightSide()}</div>

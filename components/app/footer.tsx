@@ -36,11 +36,10 @@ const footerLinks: React.FC<FooterProps> = ({ className }) => {
 
 						{/* Resources */}
 						<div className="space-y-4">
-							<h3 className="text-lg font-semibold">Legal</h3>
+							<h3 className="text-lg font-semibold">Social</h3>
 							<div className="space-y-2">
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Privacidad</p>
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Términos de Servicio</p>
-								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Cookies</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Instagram</p>
+								<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Facebook</p>
 							</div>
 						</div>
 					</div>
@@ -59,8 +58,15 @@ const footerLinks: React.FC<FooterProps> = ({ className }) => {
 				<Separator className="my-8" />
 
 				{/* Bottom section */}
-				<div className="flex flex-col items-center justify-end space-y-4 md:flex-row md:space-y-0">
-					<p className="text-foreground-400 text-sm">© 2025 Illceramics. All rights reserved.</p>
+				<div className="flex flex-col items-center justify-around space-y-4 md:flex-row md:space-y-0">
+					<div className="flex items-center space-x-4">
+						<p className="text-foreground-400 text-sm">© 2025 Illceramics. All rights reserved.</p>
+					</div>
+					<div className="flex items-center space-x-6">
+						<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Privacidad</p>
+						<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Términos de Servicio</p>
+						<p className="text-foreground-400 hover:text-foreground-700 cursor-pointer text-sm">Pólitica de Cookies</p>
+					</div>
 				</div>
 			</div>
 		</footer>

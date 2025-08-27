@@ -11,31 +11,102 @@ import { Spinner } from '@/components/ui/shadcn-io/spinner'
 import { ImagePlus, X } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
 import { Textarea } from '@/components/ui/textarea'
+import { toast } from 'sonner'
 
 const formSchema = z.object({
 	name: z.string().min(1, { error: 'El nombre no puede estar vacio' }),
 	description: z.string().min(1, { error: 'La descripción del producto no puede estar vacia' }),
 	materials: z.string().min(1, { error: 'Los materiales no pueden estar vacios' }),
-	dimensions: z.string().min(1, { error: 'Las dimensiones no pueden estar vacias' }),
+	dimensions: z.object({
+		width: z
+			.string()
+			.min(1, 'Introduce un ancho válido')
+			.refine(val => !isNaN(parseFloat(val)), {
+				message: 'Debe ser un número válido'
+			}),
+		height: z
+			.string()
+			.min(1, 'Introduce un largo válido')
+			.refine(val => !isNaN(parseFloat(val)), {
+				message: 'Debe ser un número válido'
+			}),
+		length: z
+			.string()
+			.min(1, 'Introduce un alto válido')
+			.refine(val => !isNaN(parseFloat(val)), {
+				message: 'Debe ser un número válido'
+			})
+	}),
 	images: z.array(z.instanceof(File)).min(1, 'Por favor sube al menos una imagen').max(5, 'Máximo 5 imágenes permitidas'),
-	weight: z.number().gt(0, { error: 'El peso debe ser mayor que 0' }),
+	weight: z
+		.string()
+		.min(1, 'Introduce un peso válido')
+		.refine(val => !isNaN(parseFloat(val)), {
+			message: 'Debe ser un número válido'
+		}),
+	price: z
+		.string()
+		.min(1, 'Introduce un precio válido')
+		.refine(val => !isNaN(parseFloat(val)), {
+			message: 'Debe ser un número válido'
+		}),
 	colors: z.array(z.string()).length(1, { error: 'Introduce al menos un color' })
 })
 
 export type FormValues = z.infer<typeof formSchema>
 
-type CreateProductFormProps = {
-	onSubmit: (values: FormValues) => Promise<void>
-}
-
-const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
+const CreateProductForm = () => {
 	const [loading, setLoading] = React.useState(false)
 	const [previews, setPreviews] = React.useState<string[]>([])
 	const [currentColor, setCurrentColor] = React.useState('#000000')
+	const [weightUnit, setWeightUnit] = React.useState('kg')
 
-	const onSubmitWrapper = async (data: FormValues) => {
+	const onSubmit = async (data: FormValues) => {
 		setLoading(true)
-		await onSubmit(data)
+
+		// create array of filetypes for the endpoint
+		const filetypes: Array<string> = []
+		const images = form.getValues('images')
+		for (const image of images) {
+			filetypes.push(image.type)
+		}
+
+		// get the signed urls from the server to upload the images
+		const response = await fetch('/api/products/images', {
+			method: 'POST',
+			body: JSON.stringify({
+				filetypes: filetypes,
+				productId: crypto.randomUUID()
+			})
+		})
+
+		const { uploads, productId } = (await response.json()) as { productId: string; uploads: Array<{ uploadUrl: string }> }
+
+		// upload each file using the signed URLs
+		const uploadPromises = data.images.map(async (file, index) => {
+			const uploadUrl = uploads[index].uploadUrl
+
+			return fetch(uploadUrl, {
+				method: 'PUT',
+				body: file,
+				headers: {
+					'Content-Type': file.type
+				}
+			})
+		})
+		await Promise.all(uploadPromises)
+		toast.success('Imágenes subidas correctamente')
+
+		const createProductResponse = await fetch('/api/products', {
+			method: 'POST',
+			body: JSON.stringify({
+				id: productId,
+				...data
+			})
+		})
+
+		console.log(await createProductResponse.json())
+
 		setLoading(false)
 	}
 
@@ -45,8 +116,11 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
 			name: '',
 			description: '',
 			materials: '',
-			weight: 0,
-			images: []
+			dimensions: { width: '', height: '', length: '' },
+			price: '',
+			weight: '',
+			images: [],
+			colors: []
 		}
 	})
 
@@ -102,7 +176,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
 
 	return (
 		<Form {...form}>
-			<form onSubmit={form.handleSubmit(onSubmitWrapper)} className="w-full max-w-2xl space-y-6">
+			<form onSubmit={form.handleSubmit(onSubmit)} className="w-full max-w-xl space-y-6">
 				{/* Product name */}
 				<FormField
 					control={form.control}
@@ -132,17 +206,97 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
 						</FormItem>
 					)}
 				/>
-				{/* Product Weight */}
+
+				<div className="flex items-start gap-4">
+					{/* Product Weight */}
+					<FormField
+						control={form.control}
+						name="weight"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Peso del producto</FormLabel>
+								<FormControl>
+									<div className="flex">
+										<Input type="number" step="0.01" min="0" placeholder="1.5" {...field} className="rounded-r-none border-r-0" />
+										<select
+											value={weightUnit}
+											onChange={e => setWeightUnit(e.target.value)}
+											className="bg-muted flex cursor-pointer items-center rounded-r-md border border-l-0 px-3 text-sm outline-none"
+										>
+											<option value="kg">kg</option>
+											<option value="g">g</option>
+										</select>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+
+					{/* Price */}
+					<FormField
+						control={form.control}
+						name="price"
+						render={({ field }) => (
+							<FormItem>
+								<FormLabel>Precio</FormLabel>
+								<FormControl>
+									<div className="flex items-center border-r">
+										<Input type="" step="0.01" min="0" placeholder="1.5" {...field} className="rounded-r-none border-r-0" />
+										<span className="px-2">€</span>
+									</div>
+								</FormControl>
+								<FormMessage />
+							</FormItem>
+						)}
+					/>
+				</div>
+
+				{/* Materials */}
 				<FormField
 					control={form.control}
-					name="weight"
+					name="materials"
 					render={({ field }) => (
 						<FormItem>
-							<FormLabel>Peso del producto</FormLabel>
+							<FormLabel>Materiales</FormLabel>
 							<FormControl>
-								<div className="flex">
-									<Input type="number" step="0.01" min="0" placeholder="1.5" {...field} className="rounded-r-none border-r-0" />
-									<div className="bg-muted flex items-center rounded-r-md border border-l-0 px-3 text-sm">kg</div>
+								<Input placeholder="Cerámica, acero inoxidable..." {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+
+				{/* Dimensions */}
+				<FormField
+					control={form.control}
+					name="dimensions"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Dimensiones</FormLabel>
+							<FormControl>
+								<div className="grid grid-cols-3 gap-2">
+									<span className="text-sm">Ancho</span>
+									<span className="text-sm">Largo</span>
+									<span className="text-sm">Alto</span>
+									<Input
+										type="number"
+										placeholder="Ancho (cm)"
+										value={field.value?.width || ''}
+										onChange={e => field.onChange({ ...field.value, width: e.target.value })}
+									/>
+									<Input
+										type="number"
+										placeholder="Largo (cm)"
+										value={field.value?.length || ''}
+										onChange={e => field.onChange({ ...field.value, length: e.target.value })}
+									/>
+									<Input
+										type="number"
+										placeholder="Alto (cm)"
+										value={field.value?.height || ''}
+										onChange={e => field.onChange({ ...field.value, height: e.target.value })}
+									/>
 								</div>
 							</FormControl>
 							<FormMessage />

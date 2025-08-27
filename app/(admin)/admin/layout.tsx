@@ -7,6 +7,7 @@ import { authClient } from '@/lib/authClient'
 import { redirect, usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 import { Spinner } from '@/components/ui/shadcn-io/spinner'
+import { Toaster } from '@/components/ui/sonner'
 
 export default function Layout({ children }: { children: React.ReactNode }) {
 	const { data: session, isPending } = authClient.useSession()
@@ -40,6 +41,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
 				{pathname !== '/admin/login' && <SidebarTrigger />}
 				{children}
 			</main>
+			<Toaster />
 		</SidebarProvider>
 	)
 }

@@ -9,6 +9,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '
 import { Button } from '@/components/ui/button'
 import { ImagePlus } from 'lucide-react'
 import { toast } from 'sonner'
+import Image from 'next/image'
 
 export const ImageUploader: React.FC = () => {
 	const [preview, setPreview] = React.useState<string | ArrayBuffer | null>('')
@@ -78,7 +79,16 @@ export const ImageUploader: React.FC = () => {
 									{...getRootProps()}
 									className="border-foreground shadow-foreground mx-auto flex cursor-pointer flex-col items-center justify-center gap-y-2 rounded-lg border p-8 shadow-sm"
 								>
-									{preview && <img src={preview as string} alt="Uploaded image" className="max-h-[400px] rounded-lg" />}
+									{preview && (
+										<Image
+											src={preview as string}
+											alt="Uploaded image"
+											className="rounded-lg object-contain"
+											width={400}
+											height={300}
+											layout="intrinsic"
+										/>
+									)}
 									<ImagePlus className={`size-40 ${preview ? 'hidden' : 'block'}`} />
 									<Input {...getInputProps()} type="file" />
 									{isDragActive ? <p>Drop the image!</p> : <p>Click here or drag an image to upload it</p>}

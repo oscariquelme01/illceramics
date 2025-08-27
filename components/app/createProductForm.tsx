@@ -7,9 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Button } from '@/components/ui/button'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import { Spinner } from '../ui/shadcn-io/spinner'
+import { Spinner } from '@/components/ui/shadcn-io/spinner'
 import { ImagePlus, X } from 'lucide-react'
 import { useDropzone } from 'react-dropzone'
+import { Textarea } from '@/components/ui/textarea'
 
 const formSchema = z.object({
 	name: z.string().min(1, { error: 'El nombre no puede estar vacio' }),
@@ -117,7 +118,7 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
 					)}
 				/>
 
-				{/* Password */}
+				{/* Description */}
 				<FormField
 					control={form.control}
 					name="description"
@@ -125,7 +126,24 @@ const CreateProductForm: React.FC<CreateProductFormProps> = ({ onSubmit }) => {
 						<FormItem>
 							<FormLabel>Descripcion</FormLabel>
 							<FormControl>
-								<Input {...field} />
+								<Textarea placeholder="Nuestros pendientes artesanos de arcilla rendondos ideales para..." {...field} />
+							</FormControl>
+							<FormMessage />
+						</FormItem>
+					)}
+				/>
+				{/* Product Weight */}
+				<FormField
+					control={form.control}
+					name="weight"
+					render={({ field }) => (
+						<FormItem>
+							<FormLabel>Peso del producto</FormLabel>
+							<FormControl>
+								<div className="flex">
+									<Input type="number" step="0.01" min="0" placeholder="1.5" {...field} className="rounded-r-none border-r-0" />
+									<div className="bg-muted flex items-center rounded-r-md border border-l-0 px-3 text-sm">kg</div>
+								</div>
 							</FormControl>
 							<FormMessage />
 						</FormItem>

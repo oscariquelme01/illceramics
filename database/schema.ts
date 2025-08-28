@@ -1,3 +1,4 @@
+import { InferSelectModel } from 'drizzle-orm'
 import { uuid, varchar, numeric, integer, jsonb, pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('user', {
@@ -61,6 +62,7 @@ export const verification = pgTable('verification', {
 	updatedAt: timestamp('updated_at').$defaultFn(() => /* @__PURE__ */ new Date())
 })
 
+export type Product = InferSelectModel<typeof products> // for SELECT results
 export const products = pgTable('products', {
 	id: uuid('id').defaultRandom().primaryKey(),
 

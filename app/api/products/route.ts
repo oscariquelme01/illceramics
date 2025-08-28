@@ -5,6 +5,7 @@ import { NextResponse } from 'next/server'
 import { db } from '@/database'
 import { products } from '@/database/schema'
 import { z } from 'zod'
+import { eq } from 'drizzle-orm'
 
 // Zod schema for request validation
 const createProductSchema = z.object({
@@ -135,4 +136,19 @@ export async function POST(req: NextRequest) {
 			{ status: 500 }
 		)
 	}
+}
+
+export async function GET(req: NextRequest) {
+	const { searchParams } = new URL(req.url)
+	const productId = searchParams.get('productId')
+
+	// no product id specified -> return all products
+	if (!productId) {
+		const allProducts = await db.select().from(products)
+		return NextResponse.json({ status: 200, products: allProducts })
+	}
+
+	const productDetails = await db.select().from(products).where(eq(products.id, productId))
+
+	return NextResponse.json({ status: 200, productDetails })
 }

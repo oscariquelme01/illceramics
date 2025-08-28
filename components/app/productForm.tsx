@@ -39,7 +39,10 @@ const formSchema = z.object({
 				message: 'Debe ser un número válido'
 			})
 	}),
-	images: z.array(z.instanceof(File)).min(1, 'Por favor sube al menos una imagen').max(5, 'Máximo 5 imágenes permitidas'),
+	images: z
+		.array(z.union([z.instanceof(File), z.string()]))
+		.min(1, 'Por favor sube al menos una imagen')
+		.max(5, 'Máximo 5 imágenes permitidas'),
 	weight: z
 		.string()
 		.min(1, 'Introduce un peso válido')
@@ -82,6 +85,8 @@ const getDefaultFormValues = (details: Product) => {
 		defaultValues.price = details.price || ''
 		defaultValues.weight = details.weight?.toString() || ''
 		defaultValues.colors = details.colors || []
+
+		defaultValues.images = details.images || []
 	}
 
 	return defaultValues
@@ -98,7 +103,7 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 		const filetypes: Array<string> = []
 		const images = form.getValues('images')
 		for (const image of images) {
-			filetypes.push(image.type)
+			if (image instanceof File) filetypes.push(image.type)
 		}
 
 		// get the signed urls from the server to upload the images
@@ -110,19 +115,24 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 			})
 		})
 
-		const { uploads, productId } = (await response.json()) as { productId: string; uploads: Array<{ uploadUrl: string }> }
+		const { uploads, productId } = (await response.json()) as { productId: string; uploads: Array<{ uploadUrl: string; key: string }> }
+
+		const imageKeys: Array<string> = []
 
 		// upload each file using the signed URLs
 		const uploadPromises = data.images.map(async (file, index) => {
 			const uploadUrl = uploads[index].uploadUrl
+			imageKeys.push(uploads[index].key)
 
-			return fetch(uploadUrl, {
-				method: 'PUT',
-				body: file,
-				headers: {
-					'Content-Type': file.type
-				}
-			})
+			if (file instanceof File) {
+				return fetch(uploadUrl, {
+					method: 'PUT',
+					body: file,
+					headers: {
+						'Content-Type': file.type
+					}
+				})
+			}
 		})
 		await Promise.all(uploadPromises)
 		toast.success('Imágenes subidas correctamente')
@@ -135,7 +145,7 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 				...data,
 				id: productId,
 				weight: finalWeight,
-				images: []
+				images: imageKeys
 			})
 		})
 		setLoading(false)

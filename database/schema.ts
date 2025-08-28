@@ -81,7 +81,7 @@ export const products = pgTable('products', {
 		height: number
 	}>(),
 
-	images: jsonb('images').$type<{ url: string; alt?: string; isPrimary?: boolean }[]>(),
+	images: jsonb('images').$type<string[]>(),
 
 	category: varchar('category', { length: 100 }),
 

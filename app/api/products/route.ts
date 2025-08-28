@@ -44,9 +44,7 @@ const createProductSchema = z.object({
 		)
 	}),
 
-	// Optional fields for file upload
-	filename: z.string().optional(),
-	filetype: z.string().optional(),
+	images: z.array(z.string()).min(1, { error: 'Debes de incluir al menos una imagen' }),
 
 	// category can be empty string for now
 	category: z.string().optional()
@@ -92,7 +90,7 @@ export async function POST(req: NextRequest) {
 		const validatedData = validationResult.data
 
 		// Generate product ID
-		const productId = crypto.randomUUID()
+		const productId = validatedData.id
 
 		// Insert into database
 		const newProduct = await db
@@ -107,10 +105,7 @@ export async function POST(req: NextRequest) {
 				materials: validatedData.materials,
 				weight: validatedData.weight, // Always in grams
 				dimensions: validatedData.dimensions,
-				images: [
-					// TODO: Replace with actual uploaded image URLs
-					{ url: `products/${productId}/main.jpg`, alt: 'Front view', isPrimary: true }
-				],
+				images: validatedData.images,
 				category: '' // For the time being category is empty
 			})
 			.returning()

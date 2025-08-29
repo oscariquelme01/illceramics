@@ -62,6 +62,7 @@ const ProductPage = () => {
 			toast.success('Imagen borrada correctamente del repositorio')
 			// Remove the image from local state
 			setImageUrls(prev => prev.filter((_, i) => i !== index))
+
 			// Update product details to remove the image key
 			setProductDetails(prev =>
 				prev

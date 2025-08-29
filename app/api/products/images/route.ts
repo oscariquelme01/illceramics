@@ -20,7 +20,7 @@ const s3 = new S3Client({
 // Validation schemas
 const uploadSchema = z.object({
 	filetypes: z.array(z.string().min(1)),
-	productId: z.uuid().optional() // if you want to link uploads to an existing product
+	productId: z.uuid() // the frontend generates the uuid for the product, not ideal but works since we are authenticated as admin
 })
 
 const deleteSchema = z.object({
@@ -47,13 +47,10 @@ export async function POST(req: Request) {
 
 	const { filetypes, productId } = parsed.data
 
-	// If no productId passed, generate one (useful when uploading before product creation)
-	const id = productId ?? crypto.randomUUID()
-
 	// Generate signed URLs for each file
 	const uploads = await Promise.all(
 		filetypes.map(async filetype => {
-			const key = `products/${id}/${crypto.randomUUID()}`
+			const key = `products/${productId}/${crypto.randomUUID()}`
 			const command = new PutObjectCommand({
 				Bucket: process.env.S3_BUCKET_NAME!,
 				Key: key,
@@ -64,7 +61,7 @@ export async function POST(req: Request) {
 		})
 	)
 
-	return NextResponse.json({ productId: id, uploads })
+	return NextResponse.json({ uploads })
 }
 
 export async function GET(req: Request) {

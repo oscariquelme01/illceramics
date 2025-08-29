@@ -106,16 +106,19 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 			if (image instanceof File) filetypes.push(image.type)
 		}
 
+		// get the productUid from the details if they are available
+		const productId = details ? details.id : crypto.randomUUID()
+
 		// get the signed urls from the server to upload the images
 		const response = await fetch('/api/products/images', {
 			method: 'POST',
 			body: JSON.stringify({
 				filetypes: filetypes,
-				productId: crypto.randomUUID()
+				productId: productId
 			})
 		})
 
-		const { uploads, productId } = (await response.json()) as { productId: string; uploads: Array<{ uploadUrl: string; key: string }> }
+		const { uploads } = (await response.json()) as { uploads: Array<{ uploadUrl: string; key: string }> }
 
 		const imageKeys: Array<string> = []
 
@@ -150,8 +153,9 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 		})
 		setLoading(false)
 
-		if (createProductResponse.ok) toast.success('Producto creado correctamente')
-		else toast.error(`Error creando el producto: ${await createProductResponse.json()}`)
+		const successMessage = details ? 'Producto actualizado correctamente' : 'Producto creado correctamente'
+		if (createProductResponse.ok) toast.success(successMessage)
+		else toast.error(`Error creando el producto: ${JSON.stringify(await createProductResponse.json())}`)
 	}
 
 	const defaultValues = getDefaultFormValues(details!)
@@ -159,6 +163,13 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 		resolver: zodResolver(formSchema),
 		defaultValues: defaultValues
 	})
+
+	// Whenever details or form changes, reset the form
+	React.useEffect(() => {
+		if (details) {
+			form.reset(getDefaultFormValues(details))
+		}
+	}, [details, form])
 
 	return (
 		<Form {...form}>

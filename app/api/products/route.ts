@@ -89,37 +89,65 @@ export async function POST(req: NextRequest) {
 
 		const validatedData = validationResult.data
 
-		// Generate product ID
+		// Check if the product already exists
 		const productId = validatedData.id
+		const product = await db.query.products.findFirst({
+			where: eq(products.id, productId)
+		})
 
-		// Insert into database
-		const newProduct = await db
-			.insert(products)
-			.values({
-				id: productId,
-				name: validatedData.name,
-				description: validatedData.description,
-				price: validatedData.price,
-				currency: 'EUR',
-				colors: validatedData.colors,
-				materials: validatedData.materials,
-				weight: validatedData.weight, // Always in grams
-				dimensions: validatedData.dimensions,
-				images: validatedData.images,
-				category: '' // For the time being category is empty
-			})
-			.returning()
+		// product already exists, update the values!
+		if (product) {
+			await db
+				.update(products)
+				.set({
+					id: productId,
+					name: validatedData.name,
+					description: validatedData.description,
+					price: validatedData.price,
+					currency: 'EUR',
+					colors: validatedData.colors,
+					materials: validatedData.materials,
+					weight: validatedData.weight, // Always in grams
+					dimensions: validatedData.dimensions,
+					images: validatedData.images,
+					category: '' // For the time being category is empty
+				})
+				.where(eq(products.id, productId))
 
-		console.log('Created product:', newProduct)
-
-		return NextResponse.json(
-			{
-				product: newProduct[0], // returning() gives an array
+			return NextResponse.json({
 				status: 200,
-				message: 'Product created successfully'
-			},
-			{ status: 200 }
-		)
+				message: 'Product updated correctly'
+			})
+		}
+		// new product, create it!
+		else {
+			// Insert into database
+			const newProduct = await db
+				.insert(products)
+				.values({
+					id: productId,
+					name: validatedData.name,
+					description: validatedData.description,
+					price: validatedData.price,
+					currency: 'EUR',
+					colors: validatedData.colors,
+					materials: validatedData.materials,
+					weight: validatedData.weight, // Always in grams
+					dimensions: validatedData.dimensions,
+					images: validatedData.images,
+					category: '' // For the time being category is empty
+				})
+				.returning()
+
+			return NextResponse.json(
+				{
+					product: newProduct[0], // returning() gives an array
+					status: 200,
+					message: 'Product created successfully'
+				},
+				{ status: 200 }
+			)
+		}
 	} catch (error) {
 		console.error('Error creating product:', error)
 

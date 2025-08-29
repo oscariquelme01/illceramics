@@ -1,5 +1,5 @@
 import { InferSelectModel } from 'drizzle-orm'
-import { uuid, varchar, numeric, integer, jsonb, pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core'
+import { uuid, varchar, numeric, real, jsonb, pgTable, text, timestamp, boolean } from 'drizzle-orm/pg-core'
 
 export const user = pgTable('user', {
 	id: text('id').primaryKey(),
@@ -74,7 +74,7 @@ export const products = pgTable('products', {
 
 	colors: jsonb('colors').$type<string[]>(), // e.g. ["#000000", "#ffffff"]
 	materials: varchar('materials', { length: 255 }), // e.g. ["cotton", "leather"]
-	weight: integer('weight'), // grams (or switch to numeric if you want decimals)
+	weight: real('weight'), // grams (or switch to numeric if you want decimals)
 	dimensions: jsonb('dimensions').$type<{
 		length: number
 		width: number

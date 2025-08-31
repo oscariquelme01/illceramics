@@ -44,7 +44,7 @@ const createProductSchema = z.object({
 		)
 	}),
 
-	images: z.array(z.string()).min(1, { error: 'Debes de incluir al menos una imagen' }),
+	images: z.array(z.string()),
 
 	// category can be empty string for now
 	category: z.string().optional()
@@ -109,7 +109,7 @@ export async function POST(req: NextRequest) {
 					materials: validatedData.materials,
 					weight: validatedData.weight, // Always in grams
 					dimensions: validatedData.dimensions,
-					images: validatedData.images,
+					images: product.images?.concat(validatedData.images),
 					category: '' // For the time being category is empty
 				})
 				.where(eq(products.id, productId))

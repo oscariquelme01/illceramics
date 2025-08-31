@@ -94,7 +94,7 @@ const getDefaultFormValues = (details: Product) => {
 
 const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 	const [loading, setLoading] = React.useState(false)
-	const [weightUnit, setWeightUnit] = React.useState<'kg' | 'g'>('kg')
+	const [weightUnit, setWeightUnit] = React.useState<'kg' | 'g'>('g')
 
 	const onSubmit = async (data: FormValues) => {
 		setLoading(true)
@@ -118,27 +118,30 @@ const ProductForm: React.FC<{ details?: Product }> = ({ details }) => {
 			})
 		})
 
-		const { uploads } = (await response.json()) as { uploads: Array<{ uploadUrl: string; key: string }> }
-
+		// only upload images if there are any new files (those stored in the filetypes array)
 		const imageKeys: Array<string> = []
+		if (filetypes.length) {
+			const { uploads } = (await response.json()) as { uploads: Array<{ uploadUrl: string; key: string }> }
 
-		// upload each file using the signed URLs
-		const uploadPromises = data.images.map(async (file, index) => {
-			const uploadUrl = uploads[index].uploadUrl
-			imageKeys.push(uploads[index].key)
+			// upload each file using the signed URLs
+			const uploadPromises = data.images.map(async (file, index) => {
+				// TODO: fix this when no new images are being uploades
+				const uploadUrl = uploads[index].uploadUrl
+				imageKeys.push(uploads[index].key)
 
-			if (file instanceof File) {
-				return fetch(uploadUrl, {
-					method: 'PUT',
-					body: file,
-					headers: {
-						'Content-Type': file.type
-					}
-				})
-			}
-		})
-		await Promise.all(uploadPromises)
-		toast.success('Imágenes subidas correctamente')
+				if (file instanceof File) {
+					return fetch(uploadUrl, {
+						method: 'PUT',
+						body: file,
+						headers: {
+							'Content-Type': file.type
+						}
+					})
+				}
+			})
+			await Promise.all(uploadPromises)
+			toast.success('Imágenes subidas correctamente')
+		}
 
 		const finalWeight = weightUnit === 'kg' ? 1000 * parseFloat(data.weight) : parseFloat(data.weight)
 

@@ -50,6 +50,10 @@ const createProductSchema = z.object({
 	category: z.string().optional()
 })
 
+const deleteProductSchema = z.object({
+	productId: z.uuid()
+})
+
 export async function POST(req: NextRequest) {
 	try {
 		// Auth check
@@ -174,4 +178,38 @@ export async function GET(req: NextRequest) {
 	const productDetails = await db.select().from(products).where(eq(products.id, productId))
 
 	return NextResponse.json({ status: 200, productDetails })
+}
+
+export async function DELETE(req: Request) {
+	try {
+		// Check authentication and authorization
+		const session = await auth.api.getSession({
+			query: { disableCookieCache: true },
+			headers: await headers()
+		})
+
+		if (!session || !session?.user.role?.includes('admin')) {
+			return NextResponse.json({ message: 'You must be logged in as an admin to delete products' }, { status: 403 })
+		}
+
+		// Parse request body
+		const body = await req.json()
+		const parsed = deleteProductSchema.safeParse(body)
+
+		if (!parsed.success) {
+			return NextResponse.json({ error: 'Invalid request data', details: parsed.error }, { status: 400 })
+		}
+
+		const { productId } = parsed.data
+
+		await db.delete(products).where(eq(products.id, productId))
+
+		return NextResponse.json({
+			message: 'Product deleted successfully',
+			status: 200
+		})
+	} catch (error) {
+		console.error('Error deleting the product from the DB:', error)
+		return NextResponse.json({ error: 'Failed to delete image' }, { status: 500 })
+	}
 }

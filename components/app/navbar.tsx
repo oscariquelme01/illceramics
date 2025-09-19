@@ -114,9 +114,9 @@ export default function Navbar({ className }: NavbarProps) {
 					</SheetTrigger>
 					<SheetContent>
 						<SheetHeader>
-							<SheetTitle>This is some serious navigation</SheetTitle>
+							<SheetTitle>Work in progress</SheetTitle>
 							<SheetDescription>
-								Link 1<br /> Link 2 brrr
+								Link 1<br /> Link 2
 								<br />
 							</SheetDescription>
 						</SheetHeader>
